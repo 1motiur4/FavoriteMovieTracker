@@ -7,6 +7,7 @@ const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 const SEARCHURL =
   "https://api.themoviedb.org/3/search/movie?&api_key=" + apiKey + "&query=";
 
+// this changes to true if you are on the favorites page, so movies that are removed disappear from the page
 var onFav = false;
 
 // This grabs a movie by its ID -- for Favorites page
@@ -28,7 +29,7 @@ function showFavorites() {
   });
 }
 
-// This grabs an array of movies
+// This grabs an array of movies -- for main page
 function getMoviesData(url) {
   onFav = false;
   main.innerHTML = "";
@@ -53,6 +54,7 @@ const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 
+//Function for laying out movies onto the page
 function createPage(movieData) {
   const image = document.createElement("img");
   const movieTitle = document.createElement("h2");
@@ -72,6 +74,7 @@ function createPage(movieData) {
   const addToFav = document.createElement("button");
   addToFav.className = "fav";
 
+  // If the movie is already in the favorites array, then it'll have a remove button
   if (favoritesArray.includes(movieData.id.toString())) {
     addToFav.innerText = "Remove";
     addToFav.onclick = removeFromFavF;
@@ -107,6 +110,7 @@ function createPage(movieData) {
   }
 }
 
+//Pop-up message when adding or removing a movie
 function showAlert(message) {
   $(".alert").find(".message").text(message);
   $(".alert").fadeIn("slow", function () {
